@@ -109,9 +109,8 @@ while respuesta!="no":
                     print("La operacion es incorrecta")
 
                 for i in list:
-                    if i!= '' or i != ' ':
-                        lista.append(i)
-                      
+                    if i!= '':
+                        lista.append(i)      
                 opc[opcion](lista)
                 respuesta=str(input("Desea hacer otra operacion? [Si/No]: "))
                 respuesta=respuesta.lower()
