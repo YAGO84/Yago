@@ -14,32 +14,44 @@ def exponencial(a,b):
     print("La exponencial es:",a**b)
 
 def operacion(list):
-    for operador in list:
+    for operador in lista:
         operador=['+','-','*','/','//','x','X']
-        for i in list:
-             if i== '*' or i == 'x' or i == 'X':
-                posm=list.index(i)
-                r=float(list[posm -1])*float(list[posm+1])
+        for i in lista:
+            if i== '*' or i == 'x' or i == 'X':
+                posm=lista.index(i)
+                r=float(lista[posm -1])*float(lista[posm+1])
                 del list [posm-1:posm+2]
-                list.insert(posm-1,r)
-        for i in list:
+                lista.insert(posm-1,r)
+        for i in lista:
+             if i== '**':
+                pose=lista.index(i)
+                r=int(lista[pose -2])**int(lista[pose+1])
+                del lista [pose-2:pose+2]
+                lista.insert(pose-2,r)
+        for i in lista:
              if i== '%' or i == '/':
-                posd=list.index(i)
-                r=int(list[posd -1])/int(list[posd+1])
-                del list [posd-1:posd+2]
-                list.insert(posd-1,r)
-        for i in list:
+                posd=lista.index(i)
+                r=float(lista[posd -1])/float(lista[posd+1])
+                del lista [posd-1:posd+2]
+                lista.insert(posd-1,r)
+             if i == '//':
+                posd=lista.index(i)
+                r=float(lista[posd -2])//float(lista[posd+1])
+                del lista [posd-2:posd+2]
+                lista.insert(posd-2,r)
+        for i in lista:
              if i== '+':
-                poss=list.index(i)
-                r=float(list[poss -1])+float(list[poss+1])
-                del list [poss-1:poss+2]
-                list.insert(poss-1,r)
-        for i in list:
+                poss=lista.index(i)
+                r=float(lista[poss -1])+float(lista[poss+1])
+                del lista [poss-1:poss+2]
+                lista.insert(poss-1,r)
+        for i in lista:
              if i== '-':
-                posr=list.index(i)
-                r=float(list[posr -1])-float(list[posr+1])
-                del list [posr-1:posr+2]
-                list.insert(posr-1,r)
+                posr=lista.index(i)
+                r=float(lista[posr -1])-float(lista[posr+1])
+                del lista [posr-1:posr+2]
+                lista.insert(posr-1,r)
+    
     print("El resultado de su operacion es :",list[0])   
     
 def Salir(): 
@@ -72,23 +84,37 @@ while respuesta!="no":
             elif opcion=='6':
                 op=str(input("Introducza la operacion a realizar: "))
                 list=[]
+                lista=[]
                 var=''
+                operador=''
                 if len(op)>3:
                     for i in op:   
                         if i!=' ':
-                            if i.isdigit():
+                            if i.isdigit()or i=='.' or i==',':
                                 var=var+i
+                                if operador!='':
+                                    list.append(operador)
+                                    operador=''
                             else:
                                 list.append(var)
                                 var=''
-                                list.append(i)
+                                if i == '*' or i=='/':
+                                    operador=operador+i
+                                else:
+                                    list.append(i)
                     if var!='':
                         list.append(var)
-                    opc[opcion](list)
-                    respuesta=str(input("Desea hacer otra operacion? [Si/No]: "))
-                    respuesta=respuesta.lower()
+
                 else:
-                       print("La operacion es incorrecta")
+                    print("La operacion es incorrecta")
+
+                for i in list:
+                    if i!= '' or i != ' ':
+                        lista.append(i)
+                print(lista)        
+                opc[opcion](lista)
+                respuesta=str(input("Desea hacer otra operacion? [Si/No]: "))
+                respuesta=respuesta.lower()
             else:    
                 pn=float(input("Ingrese un Numero: "))
                 sn=float(input("Ingrese otro Numero: "))
