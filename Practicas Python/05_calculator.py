@@ -111,7 +111,7 @@ while respuesta!="no":
                 for i in list:
                     if i!= '' or i != ' ':
                         lista.append(i)
-                print(lista)        
+                      
                 opc[opcion](lista)
                 respuesta=str(input("Desea hacer otra operacion? [Si/No]: "))
                 respuesta=respuesta.lower()
