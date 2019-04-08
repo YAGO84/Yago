@@ -13,11 +13,40 @@ def divide(a,b):
 def exponencial(a,b):
     print("La exponencial es:",a**b)
 
+def operacion(list):
+    for operador in list:
+        operador=['+','-','*','/','//','x','X']
+        for i in list:
+             if i== '*' or i == 'x' or i == 'X':
+                posm=list.index(i)
+                r=float(list[posm -1])*float(list[posm+1])
+                del list [posm-1:posm+2]
+                list.insert(posm-1,r)
+        for i in list:
+             if i== '%' or i == '/':
+                posd=list.index(i)
+                r=int(list[posd -1])/int(list[posd+1])
+                del list [posd-1:posd+2]
+                list.insert(posd-1,r)
+        for i in list:
+             if i== '+':
+                poss=list.index(i)
+                r=float(list[poss -1])+float(list[poss+1])
+                del list [poss-1:poss+2]
+                list.insert(poss-1,r)
+        for i in list:
+             if i== '-':
+                posr=list.index(i)
+                r=float(list[posr -1])-float(list[posr+1])
+                del list [posr-1:posr+2]
+                list.insert(posr-1,r)
+    print("El resultado de su operacion es :",list[0])   
+    
 def Salir(): 
     print("HASTA LUEGO!")
 
 		
-opc={'1':suma,'2':resta,'3':multiplica,'4':divide,'5':exponencial}	
+opc={'1':suma,'2':resta,'3':multiplica,'4':divide,'5':exponencial,'6':operacion}	
 respuesta="si"
 while respuesta!="no":
     try:
@@ -34,17 +63,37 @@ while respuesta!="no":
         print(("|" + ' ' * 2 + '+-' + ' ' * 1 + '0' + ' ' * 2 + ',' + ' ' * 4 + 'X'+ ' ' * 1 + '|\n') *1,end='')
         print(("|" + ' ' * 15 +'|\n') *1,end='')
         print("+" + 15 * '-' + '+')
-        print ('''CALCULADORA\n1) SUMAR \n2) RESTAR \n3) MULTIPLICAR \n4) DIVIDIR \n5) EXPONENCIAL \n6) SALIR''')
+        print ('''CALCULADORA\n1) SUMAR \n2) RESTAR \n3) MULTIPLICAR \n4) DIVIDIR \n5) EXPONENCIAL \n6) OPERACION COMPLEJA \n7) SALIR''')
         opcion=input("Ingrese la opcion deseada: ")
-        if opcion>'0' and opcion<'6':
-            if opcion=='6':
+        if opcion>'0' and opcion<'8' and len(opcion)==1:
+            if opcion=='7':
                 Salir()
                 break
+            elif opcion=='6':
+                op=str(input("Introducza la operacion a realizar: "))
+                list=[]
+                var=''
+                if len(op)>3:
+                    for i in op:   
+                        if i!=' ':
+                            if i.isdigit():
+                                var=var+i
+                            else:
+                                list.append(var)
+                                var=''
+                                list.append(i)
+                    if var!='':
+                        list.append(var)
+                    opc[opcion](list)
+                    respuesta=str(input("Desea hacer otra operacion? [Si/No]: "))
+                    respuesta=respuesta.lower()
+                else:
+                       print("La operacion es incorrecta")
             else:    
                 pn=float(input("Ingrese un Numero: "))
                 sn=float(input("Ingrese otro Numero: "))
                 opc[opcion](pn,sn)
-                respuesta=input("Desea hacer otra operacion? [Si/No]: ")
-				respuesta=respuesta.lower()
+                respuesta=str(input("Desea hacer otra operacion? [Si/No]: "))
+                respuesta=respuesta.lower()
     except:
             print("Ha ocurrido un error.")
